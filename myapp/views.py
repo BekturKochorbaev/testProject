@@ -46,7 +46,7 @@ class OrderBuyAPIView(APIView):
         line_items = []
 
         for order_item in order.items.select_related('item'):
-            unit_amount = int(order_item.order.order_price * Decimal('100'))
+            unit_amount = int(order_item.item.get_discount_price() * Decimal('100'))
             line_items.append(
                 {
                     'price_data': {

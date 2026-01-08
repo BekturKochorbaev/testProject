@@ -11,7 +11,11 @@
 
     <p>{{ item.description }}</p>
     <p>Цена: {{ item.price }}</p>
+    {%if item.discount%}
     <p>Скидка: {{ item.discount }}</p>
+    {% else %}
+    <p>Скидки нет</p>
+    {% endif %}
     {% empty %}
         <p>Товары не найдены</p>
     {% endfor %}

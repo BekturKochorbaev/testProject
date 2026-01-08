@@ -85,12 +85,12 @@ python manage.py createsuperuser
 ```
 ## Приложение будет доступно по адресу:
 ```commandline
-http://127.0.0.1:8000/
+https://api.alimmah.dev
 ```
 ## Админ-панель
 ### Админка Django:
 ```commandline
-http://127.0.0.1:8000/admin/
+https://api.alimmah.dev/admin/
 ```
 ### Через админку можно:
 
@@ -108,13 +108,13 @@ http://127.0.0.1:8000/admin/
 ### Список товаров
 
 ```commandline
-http://127.0.0.1:8000/api/items/
+https://api.alimmah.dev/api/items/
 ```
 
 
 ### Детальная страница товара
 ```commandline
-http://127.0.0.1:8000/api/items/1/
+https://api.alimmah.dev/api/items/1/
 ```
 ### На странице товара:
 

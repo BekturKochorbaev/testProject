@@ -15,7 +15,7 @@ class Discount(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название")
-    description = models.TextField(blank=True, verbose_name="Описание")
+    description = models.TextField(null=False, blank=False, verbose_name="Описание")
     price = models.DecimalField(max_digits=100, decimal_places=2)
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Скидка")
 
