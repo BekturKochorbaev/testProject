@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Товары</title>
+
+</head>
+<body>
+    {% for item in items %}
+    <h3><a href="{%url 'item-detail' item.pk%}">{{ item.name }}</a></h3>
+
+    <p>{{ item.description }}</p>
+    <p>Цена: {{ item.price }}</p>
+    <p>Скидка: {{ item.discount }}</p>
+    {% empty %}
+        <p>Товары не найдены</p>
+    {% endfor %}
+
+</body>
+</html>

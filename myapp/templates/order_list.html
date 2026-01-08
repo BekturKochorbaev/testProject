@@ -1,0 +1,42 @@
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  const stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+
+  function buyOrder(orderId) {
+    fetch(`/api/orders/${orderId}/buy/`)
+      .then(res => res.json())
+      .then(data => {
+        return stripe.redirectToCheckout({
+          sessionId: data.session_id
+        });
+      })
+      .catch(err => console.error(err));
+  }
+</script>
+
+{% for order in orders %}
+  <div class="card">
+    <h3>Заказ № {{ order.id }}</h3>
+
+    <ul>
+      {% for oi in order.items.all %}
+        <li>
+          {{ oi.item.name }} × {{ oi.quantity }}
+          ({{ oi.total_price }})
+        </li>
+      {% endfor %}
+    </ul>
+
+    <p>Итого: {{ order.order_price }}</p>
+    <p>Создан: {{ order.created_at }}</p>
+    <p>Оплачен: {{ order.is_paid }}</p>
+
+    {% if not order.is_paid %}
+      <button onclick="buyOrder({{ order.id }})">Pay</button>
+    {% else %}
+      <strong>Оплачено</strong>
+    {% endif %}
+  </div>
+{% empty %}
+  <p>Заказов нет</p>
+{% endfor %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buy {{ item.name }}</title>
+</head>
+<body>
+  <h1> {{ item.name }}</h1>
+  <p>{{ item.description }}</p>
+  <p>Цена: {{ item.price }}</p>
+
+  {%if item.discount%}
+    <p>Скидка: {{ item.discount }}</p>
+  {% else %}
+    <p>Скидки нет</p>
+  {% endif %}
+
+  <button id="buy-button">Buy</button>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+    const buyButton = document.getElementById("buy-button");
+
+    buyButton.addEventListener("click", function () {
+      fetch("/api/items/{{ item.id }}/buy/")
+        .then(response => response.json())
+        .then(data => {
+          return stripe.redirectToCheckout({
+            sessionId: data.session_id
+          });
+        })
+        .catch(error => console.error(error));
+    });
+  </script>
+</body>
+</html>
